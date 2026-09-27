@@ -16,6 +16,9 @@ def isolated_kb(tmp_path, monkeypatch):
 
     monkeypatch.setattr(settings, "knowledge_base_path", str(kb_dir))
     monkeypatch.setattr(settings, "vector_db_path", str(chroma_dir))
+    # Use the real local embedding model (not OpenAI's API) so tests get genuine
+    # semantic similarity without needing an API key, network access, or cost.
+    monkeypatch.setattr(settings, "embedding_provider", "local")
 
     store_module._client = None
     yield kb_dir

@@ -16,19 +16,33 @@
 This deliberately only measures **retrieval**, not generation. See "Why not an automated groundedness
 score" below.
 
-## Actual results (this demo corpus, this test set, run 2026-09-27)
+## Actual results (this demo corpus, this test set)
+
+With local sentence-transformers embeddings (run 2026-09-27, before the switch described
+in `docs/rag-design.md`'s "Embedding provider" section):
 
 ```json
 {
-  "top_k": 5,
-  "num_positive_cases": 14,
-  "num_negative_cases": 1,
-  "hit_rate_at_k": 1.0,
-  "mean_reciprocal_rank": 0.929,
-  "negative_control_accuracy": 1.0,
-  "mean_latency_ms": 748.3
+  "top_k": 5, "num_positive_cases": 14, "num_negative_cases": 1,
+  "hit_rate_at_k": 1.0, "mean_reciprocal_rank": 0.929,
+  "negative_control_accuracy": 1.0, "mean_latency_ms": 748.3
 }
 ```
+
+After switching the default to OpenAI's `text-embedding-3-small` (run 2026-09-27, same
+corpus and test set):
+
+```json
+{
+  "top_k": 5, "num_positive_cases": 14, "num_negative_cases": 1,
+  "hit_rate_at_k": 1.0, "mean_reciprocal_rank": 0.929,
+  "negative_control_accuracy": 1.0, "mean_latency_ms": 428.6
+}
+```
+
+Retrieval quality is identical (expected — both are competent general-purpose embedding
+models on straightforward queries); latency actually dropped, since there's no local
+model to load into the process anymore, just an API call.
 
 **Read this correctly**: this is retrieval performance on **8 documents, 27 chunks, and 15 questions I
 wrote myself knowing exactly what was in the corpus**. A hit-rate of 1.0 here says the retrieval pipeline
@@ -37,8 +51,8 @@ nothing about retrieval quality on a real, larger, messier knowledge base with a
 queries. The negative-control case shows the relevance threshold does its job (no forced irrelevant
 result), which matters more than the hit-rate number at this corpus size.
 
-The `mean_latency_ms` figure includes local sentence-transformers embedding + ChromaDB query on a single
-developer machine — not representative of a production deployment's latency under load.
+The `mean_latency_ms` figure is a single developer machine calling the OpenAI embeddings API over the
+network — not representative of production latency under load or from a different region.
 
 Re-run it yourself after changing the corpus, the embedding model, or the relevance threshold:
 

@@ -1,21 +1,11 @@
 import re
 
-from sentence_transformers import SentenceTransformer
-
 from ..config import settings
 from ..models.schemas import SourceCitation
+from .embeddings import embed_query
 from .store import get_collection
 
 _CHUNK_INDEX_RE = re.compile(r"-c(\d+)-")
-
-_model = None
-
-
-def _get_model():
-    global _model
-    if _model is None:
-        _model = SentenceTransformer(settings.embedding_model)
-    return _model
 
 
 def retrieve_evidence(
@@ -35,7 +25,7 @@ def retrieve_evidence(
     if collection.count() == 0:
         return []
 
-    query_embedding = _get_model().encode([query]).tolist()
+    query_embedding = [embed_query(query)]
     # over-fetch so dedup/threshold still leaves ~top_k useful results
     n_results = min(max(top_k * 3, top_k), collection.count())
 

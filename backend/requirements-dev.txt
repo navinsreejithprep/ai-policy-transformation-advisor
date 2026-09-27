@@ -1,2 +1,6 @@
 -r requirements.txt
 pytest>=8.3.0
+# Only needed for EMBEDDING_PROVIDER=local, used by the test suite (see
+# app/rag/embeddings.py) so tests get real semantic similarity without network
+# calls or API cost. Not required in production.
+sentence-transformers>=3.3.0

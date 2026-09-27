@@ -7,7 +7,14 @@ class Settings(BaseSettings):
     llm_provider: str = "openai"  # "openai" or "anthropic" — see app/agents/definitions.py
     openai_model: str = "gpt-4o-mini"
     anthropic_model: str = "claude-haiku-4-5-20251001"
-    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+
+    # "openai" (default, production) uses OpenAI's embeddings API — no torch/transformers
+    # dependency, deployable on constrained hosts. "local" (test-suite only) uses a real
+    # sentence-transformers model so tests get genuine semantic similarity without network
+    # calls or API cost — see app/rag/embeddings.py.
+    embedding_provider: str = "openai"
+    openai_embedding_model: str = "text-embedding-3-small"
+    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"  # only used when embedding_provider="local"
 
     chroma_path: str = "./chroma_db"
     vector_db_path: str = ""  # alias for chroma_path, kept for naming parity with the spec

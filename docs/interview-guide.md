@@ -204,3 +204,21 @@ verification against the vector store, not just prompt-level constraint; (3) add
 document-level access control; (4) replace the demo evaluation set with a larger, held-out one and add
 automated generation-quality scoring; (5) move to hybrid retrieval + reranking; (6) add real observability
 (structured logs are already there — add tracing/metrics dashboards on top).
+
+## 21. Tell me about a real problem you hit deploying this.
+
+**Technical**: The first deploy attempt used local `sentence-transformers` embeddings, which pulls in
+`torch` + `transformers` (100+ transitive packages). On Render's free tier, importing that chain at
+startup exceeded the platform's CPU allocation badly enough that the process never finished starting —
+not a crash, just five minutes of total silence before the platform's port-scan timeout killed the
+deploy. The fix wasn't a bigger instance; it was recognizing the dependency itself was the problem.
+Since the app already requires an OpenAI API key for every LLM call, switching embeddings to OpenAI's
+`text-embedding-3-small` API removed the entire torch/transformers chain, and the free tier then started
+in seconds. Retrieval quality on the evaluation set was identical before and after (see
+`docs/evaluation.md`) — the local model wasn't more accurate, just heavier.
+
+**Business**: This is a genuinely common pattern — reaching for the biggest/most complete open-source
+tool (a full local ML model) when a hosted API would do the same job with a fraction of the operational
+weight. The instinct to "just deploy a bigger instance" would have worked, but at ongoing cost, to paper
+over a dependency that didn't need to be there. Diagnosing root cause before reaching for more
+infrastructure is the more defensible engineering call, and the cheaper one.

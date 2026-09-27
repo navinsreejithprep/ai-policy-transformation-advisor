@@ -3,15 +3,13 @@ import uuid
 from pathlib import Path
 
 import fitz
-from sentence_transformers import SentenceTransformer
 
 from ..config import settings
 from ..utils.logging import get_logger
+from .embeddings import embed_texts
 from .store import get_collection
 
 logger = get_logger(__name__)
-
-_model = None
 
 DEMO_DIR_NAME = "demo"
 SUPPORTED_EXTENSIONS = {".pdf", ".txt", ".md"}
@@ -33,13 +31,6 @@ DEMO_CATEGORY_MAP = {
 
 class IngestionError(Exception):
     """Raised when a document cannot be parsed or contains no extractable text."""
-
-
-def embedding_model():
-    global _model
-    if _model is None:
-        _model = SentenceTransformer(settings.embedding_model)
-    return _model
 
 
 def clean_text(text: str) -> str:
@@ -98,7 +89,7 @@ def _upsert_chunks(
     chunks = chunk_text(cleaned)
     if not chunks:
         return 0
-    embeddings = embedding_model().encode(chunks).tolist()
+    embeddings = embed_texts(chunks)
     ids = [f"{document_name}-p{page_no}-c{i}-{uuid.uuid4().hex[:6]}" for i in range(len(chunks))]
     metadatas = [
         {

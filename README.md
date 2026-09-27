@@ -103,7 +103,7 @@ Full write-up: [docs/architecture.md](docs/architecture.md). Agent-by-agent deta
 ## 8. Tech stack
 
 - **Backend**: Python, FastAPI, Pydantic v2, CrewAI, OpenAI API (Anthropic swappable via config)
-- **RAG**: sentence-transformers embeddings, ChromaDB, PyMuPDF (PDF), plain-text/Markdown ingestion
+- **RAG**: OpenAI embeddings API (`text-embedding-3-small`) by default — no torch/transformers dependency, so the backend deploys cleanly on constrained free-tier hosts; a real local sentence-transformers model is used for the test suite only (see `app/rag/embeddings.py`). ChromaDB, PyMuPDF (PDF), plain-text/Markdown ingestion.
 - **Frontend**: Next.js 15, TypeScript, Tailwind CSS (no chart library — visualizations are hand-built
   SVG/CSS so the stack stays small; see `frontend/components/report/`)
 - **Tests**: pytest (backend), `tsc --noEmit` + `next build` (frontend)

@@ -15,7 +15,7 @@ Cleaning (strip control chars, collapse whitespace — app/rag/ingest.py::clean_
 Chunking (900 chars, 120 overlap, configurable via CHUNK_SIZE/CHUNK_OVERLAP)
     |
     v
-Embedding (sentence-transformers/all-MiniLM-L6-v2, configurable)
+Embedding (OpenAI text-embedding-3-small by default; see "Embedding provider" below)
     |
     v
 ChromaDB (persistent, cosine space) — one collection, metadata-filterable
@@ -26,6 +26,30 @@ retrieve_evidence(): over-fetch -> relevance threshold -> dedup -> top_k
     v
 Agent context (formatted as "[document_name, page N] passage text")
 ```
+
+## Embedding provider
+
+`EMBEDDING_PROVIDER` (default `openai`) controls how `app/rag/embeddings.py` generates
+vectors:
+
+- **`openai`** (production default): calls OpenAI's `text-embedding-3-small` API. Since
+  this app already requires an OpenAI key for every LLM call, this adds no new external
+  dependency — just a per-call cost of fractions of a cent.
+- **`local`** (test suite only): a real `sentence-transformers` model, imported lazily so
+  a production install without that package never touches this code path.
+
+**Why not just use the local model in production, like the first version of this did**:
+it was tried, and it broke deployment. `sentence-transformers` pulls in `torch` +
+`transformers` (100+ transitive packages, including irrelevant NVIDIA CUDA wheels on a
+CPU-only host). On a free-tier host with limited CPU, importing that chain at startup
+took long enough that the platform's port-scan timeout killed the deploy before the
+process ever printed a single log line — not a crash, just total silence for 5+ minutes.
+Switching to a hosted embeddings API removed the entire import chain and fixed startup
+time immediately, with retrieval quality on the evaluation set unchanged (see
+`docs/evaluation.md`) and evaluation latency actually *dropping* since there's no local
+model to load per process. Documented here because "why not just deploy a bigger
+instance" is the obvious first question — the actual fix was removing the dependency,
+not buying more hardware.
 
 ## Chunk metadata
 

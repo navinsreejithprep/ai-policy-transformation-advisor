@@ -16,8 +16,10 @@ services:
         value: openai
       - key: OPENAI_MODEL
         value: gpt-4o-mini
-      - key: EMBEDDING_MODEL
-        value: sentence-transformers/all-MiniLM-L6-v2
+      - key: EMBEDDING_PROVIDER
+        value: openai
+      - key: OPENAI_EMBEDDING_MODEL
+        value: text-embedding-3-small
       - key: CHROMA_PATH
         value: ./chroma_db
       - key: KNOWLEDGE_BASE_PATH
