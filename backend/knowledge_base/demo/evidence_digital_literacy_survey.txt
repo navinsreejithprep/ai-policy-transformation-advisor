@@ -1,0 +1,41 @@
+DEMO DATA — NOT REAL POLICY EVIDENCE. This is a synthetic document created to
+demonstrate the AI Policy & Transformation Advisor. It does not describe a real
+survey, agency or population.
+
+[PAGE 1]
+National Digital Literacy Survey (Synthetic) — Summary Report
+
+Methodology (fictional): A synthetic household survey of 4,000 respondents across
+12 fictional districts, designed for demonstration purposes only.
+
+Key findings:
+- 41% of respondents in low-income districts report no reliable home internet
+  connection.
+- 58% of respondents aged 55+ report low confidence completing an online form
+  without assistance.
+- 76% of respondents who had used a physical government service centre in the
+  past year said they would prefer a hybrid (in-person plus digital) option over
+  a fully digital one.
+
+[PAGE 2]
+Connectivity constraints
+
+Rural and low-income districts show materially lower broadband penetration than
+urban districts in this synthetic sample. Mobile data coverage is more consistent
+than fixed broadband, but data cost is cited as a barrier by 33% of respondents.
+
+Digital literacy gaps
+
+Respondents without prior exposure to online government services required an
+average of three assisted sessions before completing a task independently in
+this synthetic pilot. This suggests that a single onboarding session may be
+insufficient for a meaningful share of the target population.
+
+[PAGE 3]
+Implications for programme design (analyst commentary, not raw survey data)
+
+Programmes assuming immediate self-service adoption without an assisted-channel
+fallback risk excluding the digitally underserved segment identified above. A
+phased approach with in-person support during an initial adoption period is
+associated with higher completion rates in comparable synthetic scenarios
+modeled for this report.

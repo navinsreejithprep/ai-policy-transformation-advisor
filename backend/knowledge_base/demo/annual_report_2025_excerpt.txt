@@ -1,0 +1,27 @@
+DEMO DATA — NOT REAL POLICY EVIDENCE. This is a synthetic excerpt styled as an
+annual report, invented purely so the demo can show a realistic
+"[Source: Annual Report 2025, p. 43]"-style citation. It is not a real report.
+
+[PAGE 41]
+Annual Report 2025 (Synthetic Excerpt) — Digital Public Services Division
+
+This division's fictional mandate covers citizen-facing digital service
+delivery. Figures in this excerpt are placeholders created for demonstration.
+
+[PAGE 43]
+Service completion trends (illustrative)
+
+Self-service completion rates for online applications rose over the reporting
+year in this fictional division, while requests handled through assisted
+in-person channels declined as a share of total volume. The division's
+synthetic commentary attributes part of the shift to expanded digital access
+points introduced mid-year, consistent with the approach described in the
+Estlandia benchmark case study.
+
+[PAGE 44]
+Outstanding challenges (illustrative)
+
+The division's fictional commentary notes that digital literacy and
+connectivity gaps remain concentrated in the same low-income and rural
+segments identified in the digital literacy survey, and recommends continued
+investment in assisted-channel capacity rather than a fully digital-only model.

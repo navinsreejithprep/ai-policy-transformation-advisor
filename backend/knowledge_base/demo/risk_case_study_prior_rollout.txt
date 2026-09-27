@@ -1,0 +1,43 @@
+DEMO DATA — NOT REAL POLICY EVIDENCE. This describes a fictional prior programme
+("Regional Service Modernisation Pilot") invented for this demonstration.
+
+[PAGE 1]
+Post-Implementation Case Study (Synthetic): Regional Service Modernisation Pilot
+
+Summary: A fictional prior pilot with a similar aim (moving citizen services
+online) experienced a six-month delivery delay and a data-handling incident
+during rollout. This case study is synthetic and constructed to give the Risk
+Analyst agent something concrete to reference in the demo.
+
+Vendor and delivery risk
+
+The pilot's technology vendor missed two milestone deadlines due to
+underestimated integration effort with the legacy case-management system. No
+contractual penalty clause existed for schedule slippage, which removed any
+commercial incentive to recover the timeline.
+
+[PAGE 2]
+Data risk incident
+
+A misconfigured access control on an intermediate database exposed a subset of
+applicant records to internal staff outside the intended case-handling team for
+approximately three weeks before detection, in this fictional scenario. No
+external breach occurred, but it triggered an internal review and delayed the
+next rollout phase by eight weeks.
+
+Adoption risk
+
+Frontline staff in the fictional pilot reported that the initial training
+covered system navigation but not exception-handling ("what do I do when the
+system rejects a valid case"), which led to inconsistent workarounds across
+different local offices.
+
+[PAGE 3]
+Mitigations applied in the fictional case (for reference)
+
+- Added milestone-linked payment terms to the vendor contract following the
+  delay.
+- Introduced a mandatory access-control review gate before each environment
+  promotion.
+- Extended frontline training to include exception-handling scenarios and
+  designated a local super-user per office.

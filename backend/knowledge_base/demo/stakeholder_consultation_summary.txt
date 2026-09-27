@@ -1,0 +1,35 @@
+DEMO DATA — NOT REAL POLICY EVIDENCE. This is a synthetic consultation summary
+invented for this demonstration; no such consultation took place.
+
+[PAGE 1]
+Stakeholder Consultation Summary (Synthetic) — Digital Service Access Improvement
+Programme
+
+Participants (fictional, for demo purposes): local administration
+representatives, a technology vendor panel, two citizen advocacy groups, and
+frontline service-centre staff.
+
+Local administrations: Raised concerns about being expected to deliver the
+programme without additional headcount, and asked for clarity on who owns
+data-quality issues once services move online.
+
+[PAGE 2]
+Citizen advocacy groups: Supported the programme's goals but pushed back on a
+digital-only design, citing the same connectivity and literacy gaps referenced
+in the digital literacy survey. They requested a guaranteed in-person fallback
+channel be retained, not phased out, for at least the first two years.
+
+Technology vendor panel: Flagged that a compressed procurement timeline in
+similar past fictional programmes had previously led to underestimating
+integration work with legacy systems (see the Regional Service Modernisation
+Pilot case study).
+
+[PAGE 3]
+Frontline service-centre staff: Asked for exception-handling training to be
+included from the start, not added after go-live, referencing recurring
+problems from a comparable fictional past rollout.
+
+Overall sentiment (analyst characterization, not a verbatim quote): stakeholders
+were broadly supportive of the programme's objective but skeptical of a
+digital-only delivery model without adequate staffing, training and a
+guaranteed fallback channel.

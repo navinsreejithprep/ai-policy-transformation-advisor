@@ -1,0 +1,17 @@
+[
+  {"query": "digital literacy and connectivity constraints among citizens", "expected_documents": ["evidence_digital_literacy_survey.txt"]},
+  {"query": "comparable international digital access programme benchmark", "expected_documents": ["benchmark_international_case_estlandia.txt"]},
+  {"query": "vendor delivery delay integrating with legacy case management system", "expected_documents": ["risk_case_study_prior_rollout.txt"]},
+  {"query": "data privacy incident misconfigured access control database", "expected_documents": ["risk_case_study_prior_rollout.txt"]},
+  {"query": "local administration concerns about headcount and data quality ownership", "expected_documents": ["stakeholder_consultation_summary.txt"]},
+  {"query": "citizen advocacy group opposition to digital-only service delivery", "expected_documents": ["stakeholder_consultation_summary.txt"]},
+  {"query": "programme funding envelope and steering committee governance", "expected_documents": ["budget_and_funding_note.txt"]},
+  {"query": "annual report self-service completion rate trends", "expected_documents": ["annual_report_2025_excerpt.txt"]},
+  {"query": "pilot KPI task completion rate without escalation", "expected_documents": ["evaluation_pilot_program_outcomes.txt"]},
+  {"query": "facilitator staffed community access points lessons learned", "expected_documents": ["benchmark_international_case_estlandia.txt"]},
+  {"query": "objectives of the digital service access improvement programme", "expected_documents": ["demo_policy.txt"]},
+  {"query": "exception handling training for frontline service staff", "expected_documents": ["stakeholder_consultation_summary.txt", "risk_case_study_prior_rollout.txt"]},
+  {"query": "average number of assisted sessions before independent completion", "expected_documents": ["evidence_digital_literacy_survey.txt", "evaluation_pilot_program_outcomes.txt"]},
+  {"query": "milestone based disbursement tied to independent review", "expected_documents": ["budget_and_funding_note.txt", "benchmark_international_case_estlandia.txt"]},
+  {"query": "quantum computing supply chain logistics", "expected_documents": []}
+]

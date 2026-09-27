@@ -1,0 +1,43 @@
+DEMO DATA — NOT REAL POLICY EVIDENCE. "Estlandia" is a fictional country invented
+for this demonstration. This is not a real government programme.
+
+[PAGE 1]
+International Benchmark (Synthetic): Estlandia Digital Access Initiative
+
+Objective: Increase digital public-service completion rates among underserved
+citizens, launched in a fictional programme year for illustrative purposes.
+
+Approach: Estlandia combined a national digital ID with a network of
+community-based "digital access points" staffed by trained facilitators,
+rather than relying on self-service adoption alone.
+
+Implementation model: Delivery was run jointly by the fictional Ministry of
+Digital Affairs and municipal governments, with facilitators contracted through
+local NGOs rather than a single national vendor.
+
+[PAGE 2]
+Funding and governance (synthetic)
+
+Funded through a three-year ring-fenced digital transformation budget line, with
+disbursement tied to milestone completion rather than a single upfront grant. A
+joint steering committee including citizen representatives reviewed adoption
+metrics quarterly.
+
+Outcomes (synthetic, illustrative only)
+
+In this fictional case, self-reported task-completion confidence rose over the
+programme period among surveyed users of the access points, and reliance on
+in-person-only completion declined as digital confidence grew. These figures are
+illustrative and were constructed for this demo, not measured.
+
+[PAGE 3]
+Lessons (analyst commentary)
+
+- Facilitator-supported access points appear more effective than self-service
+  portals alone when digital literacy is uneven across the population.
+- Milestone-based funding tied to adoption metrics, rather than flat grants,
+  encouraged continuous monitoring in this fictional case.
+- Comparability caveat: Estlandia's programme assumed an existing national
+  digital ID system; a programme without that foundation would need to budget
+  for identity verification separately before this comparison can be treated as
+  directly transferable.

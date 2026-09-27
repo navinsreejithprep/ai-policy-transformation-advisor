@@ -1,0 +1,29 @@
+DEMO DATA — NOT REAL POLICY EVIDENCE. Synthetic pilot evaluation invented for
+this demonstration; no such pilot occurred.
+
+[PAGE 1]
+Pilot Evaluation Report (Synthetic): District-Level Digital Access Points
+
+Scope: A fictional 6-month pilot of three digital access points in a subset of
+districts, evaluated against three illustrative KPIs.
+
+KPI 1 — Task completion rate without escalation to in-person channel: rose over
+the pilot period among first-time users in this synthetic evaluation.
+
+KPI 2 — Average assisted sessions before independent completion: fell from an
+initial baseline as facilitators gained experience, though it did not reach the
+single-session target set at pilot start.
+
+[PAGE 2]
+KPI 3 — Citizen satisfaction (self-reported, synthetic survey): satisfaction was
+higher among users who had access to a facilitator on their first visit than
+among users who attempted self-service without support first.
+
+Evaluation caveat: sample sizes in this fictional pilot were small (under 500
+users per site) and results should be read as directional, not statistically
+robust — this caveat is itself part of the synthetic demo content, to model
+how a benchmark agent should discuss evidence limitations.
+
+Recommendation (from the fictional pilot evaluators): scale the facilitator
+model before scaling pure self-service capacity, and set the single-session
+independent-completion target as a longer-term goal rather than a year-one KPI.
