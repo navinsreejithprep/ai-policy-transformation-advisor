@@ -12,3 +12,4 @@ logs/
 backend/knowledge_base/uploads/
 .pytest_cache/
 *.tsbuildinfo
+.vercel
