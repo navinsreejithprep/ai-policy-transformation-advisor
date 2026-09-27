@@ -4,7 +4,8 @@ import { useRef, useState } from "react";
 import type { DocumentCategory, DocumentListResponse } from "@/types/api";
 import { deleteDocument, getDocumentText, reindexDocuments, uploadDocument } from "@/lib/api";
 import { Badge } from "@/components/ui/Badge";
-import { DOCUMENT_CATEGORIES, categoryLabel } from "@/lib/categories";
+import { RefreshIcon, SparkleIcon, TrashIcon, UploadIcon } from "@/components/ui/icons";
+import { DOCUMENT_CATEGORIES } from "@/lib/categories";
 
 interface Props {
   data: DocumentListResponse | null;
@@ -16,6 +17,34 @@ interface Props {
 
 const ALL_TAB = "all" as const;
 type TabValue = DocumentCategory | typeof ALL_TAB;
+
+function IconButton({
+  title,
+  onClick,
+  disabled,
+  tone = "neutral",
+  children,
+}: {
+  title: string;
+  onClick: () => void;
+  disabled?: boolean;
+  tone?: "neutral" | "danger";
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      title={title}
+      aria-label={title}
+      className={`rounded-md p-1.5 disabled:opacity-40 ${
+        tone === "danger" ? "text-ink-400 hover:bg-red-50 hover:text-red-600" : "text-ink-400 hover:bg-ink-100 hover:text-ink-700"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
 
 export function KnowledgeBasePanel({ data, loading, error, onRefresh, onUseAsPolicyText }: Props) {
   const [busy, setBusy] = useState(false);
@@ -76,124 +105,80 @@ export function KnowledgeBasePanel({ data, loading, error, onRefresh, onUseAsPol
     }
   }
 
-  const activeHint =
-    activeTab === ALL_TAB
-      ? "All documents currently in the knowledge base."
-      : DOCUMENT_CATEGORIES.find((c) => c.value === activeTab)?.hint;
-
+  const activeCategory = activeTab === ALL_TAB ? null : DOCUMENT_CATEGORIES.find((c) => c.value === activeTab);
   const visibleDocuments = data?.documents.filter((d) => activeTab === ALL_TAB || d.category === activeTab) ?? [];
 
   return (
     <section className="card p-5">
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-ink-600">Knowledge Base</h2>
-        <button
-          onClick={handleReindex}
-          disabled={busy}
-          className="rounded-md border border-ink-200 px-3 py-1.5 text-xs font-medium text-ink-700 hover:bg-ink-50 disabled:opacity-50"
-        >
-          Re-index all
-        </button>
+        <div className="flex items-center gap-0.5">
+          <IconButton title="Re-index all" onClick={handleReindex} disabled={busy}>
+            <RefreshIcon />
+          </IconButton>
+          <label
+            title="Upload PDF"
+            className={`cursor-pointer rounded-md p-1.5 text-ink-400 hover:bg-ink-100 hover:text-ink-700 ${busy ? "pointer-events-none opacity-40" : ""}`}
+          >
+            <UploadIcon />
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="application/pdf"
+              className="hidden"
+              disabled={busy}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) handleUpload(file, activeTab === ALL_TAB ? undefined : activeTab);
+              }}
+            />
+          </label>
+        </div>
       </div>
-      <p className="mt-1 text-xs text-ink-400">
-        Not sure what to add? The tabs below are just suggestions of what's useful — nothing here is required.
-      </p>
 
       {loading && <p className="mt-3 text-sm text-ink-400">Loading...</p>}
       {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
 
       {data && (
         <>
-          <div className="mt-4 grid grid-cols-3 gap-3 text-center">
-            <div className="rounded-lg bg-ink-50 py-3">
-              <div className="text-2xl font-semibold text-ink-900">{data.documents.length}</div>
-              <div className="text-xs text-ink-500">documents</div>
-            </div>
-            <div className="rounded-lg bg-ink-50 py-3">
-              <div className="text-2xl font-semibold text-ink-900">{data.total_chunks}</div>
-              <div className="text-xs text-ink-500">chunks indexed</div>
-            </div>
-            <div className="rounded-lg bg-ink-50 py-3">
-              <div className="text-sm font-medium text-ink-900">
-                {data.last_indexed_at ? new Date(data.last_indexed_at).toLocaleString() : "—"}
-              </div>
-              <div className="text-xs text-ink-500">last indexed</div>
-            </div>
-          </div>
+          <p className="mt-1 text-xs text-ink-400">
+            {data.documents.length} documents · {data.total_chunks} chunks
+            {data.last_indexed_at && ` · indexed ${new Date(data.last_indexed_at).toLocaleString()}`}
+          </p>
 
-          <div className="mt-4 flex flex-wrap gap-1 border-b border-ink-200 pb-2">
-            <button
-              onClick={() => setActiveTab(ALL_TAB)}
-              className={`rounded-md px-2.5 py-1 text-xs font-medium ${
-                activeTab === ALL_TAB ? "bg-brand-100 text-brand-700" : "text-ink-500 hover:bg-ink-50"
-              }`}
-            >
-              All ({data.documents.length})
-            </button>
-            {DOCUMENT_CATEGORIES.map((cat) => {
-              const count = data.documents.filter((d) => d.category === cat.value).length;
-              return (
-                <button
-                  key={cat.value}
-                  onClick={() => setActiveTab(cat.value)}
-                  className={`rounded-md px-2.5 py-1 text-xs font-medium ${
-                    activeTab === cat.value ? "bg-brand-100 text-brand-700" : "text-ink-500 hover:bg-ink-50"
-                  }`}
-                >
-                  {cat.label} ({count})
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="mt-3 flex items-start justify-between gap-3 rounded-lg bg-ink-50 p-3">
-            <p className="text-xs text-ink-600">{activeHint}</p>
-            {activeTab !== ALL_TAB && (
-              <label className="flex-shrink-0 cursor-pointer rounded-md bg-brand-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-brand-700">
-                Upload PDF
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="application/pdf"
-                  className="hidden"
-                  disabled={busy}
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) handleUpload(file, activeTab);
-                  }}
-                />
-              </label>
-            )}
-          </div>
+          <select
+            value={activeTab}
+            onChange={(e) => setActiveTab(e.target.value as TabValue)}
+            className="mt-3 w-full rounded-md border border-ink-200 bg-white px-2 py-1.5 text-sm text-ink-800 focus:border-brand-500 focus:outline-none"
+          >
+            <option value={ALL_TAB}>All categories ({data.documents.length})</option>
+            {DOCUMENT_CATEGORIES.map((cat) => (
+              <option key={cat.value} value={cat.value}>
+                {cat.label} ({data.documents.filter((d) => d.category === cat.value).length})
+              </option>
+            ))}
+          </select>
+          {activeCategory && <p className="mt-1 text-xs text-ink-400">{activeCategory.hint}</p>}
 
           {actionError && <p className="mt-2 text-sm text-red-600">{actionError}</p>}
 
-          <ul className="mt-2 divide-y divide-ink-100">
+          <ul className="mt-2 max-h-80 divide-y divide-ink-100 overflow-y-auto">
             {visibleDocuments.map((doc) => (
-              <li key={doc.document_name} className="flex items-center justify-between py-2 text-sm">
-                <div className="flex min-w-0 items-center gap-2">
-                  <span className="truncate text-ink-800">{doc.document_name}</span>
-                  {doc.is_demo_data && <Badge tone="demo">DEMO</Badge>}
-                  {activeTab === ALL_TAB && <Badge tone="neutral">{categoryLabel(doc.category)}</Badge>}
-                  <span className="flex-shrink-0 text-xs text-ink-400">
-                    {doc.chunks} chunks · {doc.pages} pages
-                  </span>
+              <li key={doc.document_name} className="flex items-center justify-between gap-2 py-2">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="truncate text-sm text-ink-800">{doc.document_name}</span>
+                    {doc.is_demo_data && <Badge tone="demo">DEMO</Badge>}
+                  </div>
+                  <div className="text-xs text-ink-400">{doc.chunks} chunks · {doc.pages} pages</div>
                 </div>
-                <div className="flex flex-shrink-0 items-center gap-3">
-                  <button
-                    onClick={() => handleUseForAnalysis(doc.document_name)}
-                    disabled={busy}
-                    className="text-xs font-medium text-brand-600 hover:text-brand-800 disabled:opacity-50"
-                  >
-                    Use for analysis
-                  </button>
-                  <button
-                    onClick={() => handleDelete(doc.document_name)}
-                    disabled={busy}
-                    className="text-xs font-medium text-red-600 hover:text-red-800 disabled:opacity-50"
-                  >
-                    Delete
-                  </button>
+                <div className="flex flex-shrink-0 items-center gap-0.5">
+                  <IconButton title="Use for analysis" onClick={() => handleUseForAnalysis(doc.document_name)} disabled={busy}>
+                    <SparkleIcon />
+                  </IconButton>
+                  <IconButton title="Delete" tone="danger" onClick={() => handleDelete(doc.document_name)} disabled={busy}>
+                    <TrashIcon />
+                  </IconButton>
                 </div>
               </li>
             ))}
