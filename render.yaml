@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: ai-policy-advisor-backend
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: LLM_PROVIDER
+        value: openai
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: EMBEDDING_MODEL
+        value: sentence-transformers/all-MiniLM-L6-v2
+      - key: CHROMA_PATH
+        value: ./chroma_db
+      - key: KNOWLEDGE_BASE_PATH
+        value: ./knowledge_base
+      - key: TOP_K_DEFAULT
+        value: "5"
+      - key: RETRIEVAL_RELEVANCE_THRESHOLD
+        value: "0.35"
+      - key: REVISION_MAX_CYCLES
+        value: "2"
+      - key: MAX_UPLOAD_MB
+        value: "20"
+      - key: ALLOWED_ORIGINS
+        sync: false

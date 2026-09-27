@@ -24,10 +24,18 @@ class Settings(BaseSettings):
 
     log_path: str = "./logs/app.log"
 
+    # Comma-separated list of allowed frontend origins for CORS. Defaults to local
+    # dev; set to your deployed frontend's URL (e.g. https://your-app.vercel.app)
+    # in production — see ALLOWED_ORIGINS in .env.example.
+    allowed_origins: str = "http://localhost:3000"
+
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     def resolved_chroma_path(self) -> str:
         return self.vector_db_path or self.chroma_path
+
+    def allowed_origins_list(self) -> list[str]:
+        return [origin.strip() for origin in self.allowed_origins.split(",") if origin.strip()]
 
 
 settings = Settings()
